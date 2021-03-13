@@ -482,6 +482,7 @@ MonoBehaviour:
   bee: {fileID: 544564628}
   flower1Prefab: {fileID: 6435215405683450641, guid: f39c737f4c7fd4bc8877c353139e24ba,
     type: 3}
+  timeBetweenFlowerSpawns: 0.2
 --- !u!1 &544564628
 GameObject:
   m_ObjectHideFlags: 0
@@ -673,7 +674,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 555643920}
-  m_LocalRotation: {x: 0.53336084, y: -0.000000007277334, z: 0.000000004588605, w: 0.84588784}
+  m_LocalRotation: {x: 0.53336084, y: 0.000000007277334, z: -0.000000004588605, w: 0.84588784}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -894,7 +895,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 728325775}
-  m_LocalRotation: {x: 0.5302799, y: -0.000000002917589, z: 0.0000000018248378, w: 0.84782267}
+  m_LocalRotation: {x: 0.5302799, y: 0.000000020423144, z: -0.000000012773878, w: 0.84782267}
   m_LocalPosition: {x: 1.8051159, y: 5.471878, z: 8.7036}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -1250,7 +1251,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1695431611}
-  m_LocalRotation: {x: 0.50228196, y: -0.000000037196056, z: 0.000000021606134, w: 0.8647039}
+  m_LocalRotation: {x: 0.50228196, y: 0.000000037196067, z: -0.000000021606143, w: 0.8647039}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:

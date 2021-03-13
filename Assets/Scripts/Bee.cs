@@ -45,4 +45,12 @@ public class Bee : MonoBehaviour
             rb.AddForce(transform.forward * 100.0f);
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == Tags.Flower)
+        {
+            other.gameObject.GetComponent<Flower>().ReactToCollisionWithBee(this);
+        }
+    }
 }
