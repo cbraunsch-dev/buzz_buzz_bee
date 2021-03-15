@@ -6,7 +6,7 @@ public class Planet : MonoBehaviour
 {
     public GameObject bee;
     public GameObject flower1Prefab;
-    public float timeBetweenFlowerSpawns = 0.2f;
+    public float timeBetweenFlowerSpawns = 0.1f;
 
     private float timeSinceLastFlowerSpawn = 0.0f;
 
@@ -31,7 +31,7 @@ public class Planet : MonoBehaviour
     {
         var planetRadius = GetComponent<SphereCollider>().radius * transform.localScale.x;
         var beePos = bee.transform.position;
-        var rangeFactor = 4.0f;
+        var rangeFactor = 6.0f;
         var variance = new Vector3(Random.Range(-rangeFactor, rangeFactor), 0, Random.Range(-rangeFactor, rangeFactor));
         var beePosWithVariance = beePos + variance;
         var planetPos = transform.position;

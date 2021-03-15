@@ -33,11 +33,14 @@ public class Flower : MonoBehaviour
     {
         Debug.Log("Bee has hit flower");
 
+        // Turn bee in the direction that the flower is pointing
+        bee.gameObject.transform.forward = this.transform.forward;
+
         // Apply some force to the bee
-        var upwardForceFactor = Random.Range(150.0f, 350.0f);
-        var forwardForceFactor = Random.Range(-100.0f, 200.0f);
+        var upwardForceFactor = Random.Range(0.0f, 0.1f);
+        var forwardForceFactor = Random.Range(2.0f, 5.0f);
         var upwardForce = bee.gameObject.transform.up * upwardForceFactor;
         var forwardForce = bee.gameObject.transform.forward * forwardForceFactor;
-        bee.gameObject.GetComponent<Rigidbody>().AddForce(upwardForce + forwardForce);
+        bee.gameObject.GetComponent<Rigidbody>().AddForce(upwardForce + forwardForce, ForceMode.Impulse);
     }
 }
