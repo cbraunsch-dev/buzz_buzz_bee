@@ -49,6 +49,8 @@ MonoBehaviour:
   speed: 0.5
   distanceWhenToFindNewFlower: 0.5
   distanceWhenToChasePlayer: 2
+  testCubePrefab: {fileID: 8892788143559155784, guid: cb6de4069612e4d30b9c0a544a9f33a3,
+    type: 3}
 --- !u!1 &6860356426443293248
 GameObject:
   m_ObjectHideFlags: 0
