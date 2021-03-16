@@ -21,7 +21,7 @@ public class Flower : MonoBehaviour
         timeSinceAlive += Time.deltaTime;
         if(timeSinceAlive >= timeToLive)
         {
-            Die();
+            //Die();
         }
     }
 
