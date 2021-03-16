@@ -39,15 +39,15 @@ public class Bee : MonoBehaviour
             rb.AddForce((planet.transform.position - transform.position).normalized * 500.0f);
         }
 
-        var maxVelocityChange = 0.1f;
-        var walkspeed = 0.2f;
+        var maxVelocityChange = 2.1f;
+        var walkspeed = 5.0f;
         var targetVelocity = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         targetVelocity = transform.TransformDirection(targetVelocity);
         targetVelocity *= walkspeed;
 
         // Apply a force that attempts to reach our target velocity
-        //var velocityChange = (targetVelocity - rb.velocity);
-        var velocityChange = targetVelocity;
+        var velocityChange = (targetVelocity - rb.velocity);
+        //var velocityChange = targetVelocity;
         velocityChange.x = Mathf.Clamp(velocityChange.x, -maxVelocityChange, maxVelocityChange);
         velocityChange.z = Mathf.Clamp(velocityChange.z, -maxVelocityChange, maxVelocityChange);
 

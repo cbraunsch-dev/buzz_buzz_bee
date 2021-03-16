@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Flower : MonoBehaviour
 {
+    public GameObject angryBeePrefab;
     public float timeToLive = 3.0f;
 
     private float timeSinceAlive = 0.0f;
@@ -33,14 +34,15 @@ public class Flower : MonoBehaviour
     {
         Debug.Log("Bee has hit flower");
 
-        // Turn bee in the direction that the flower is pointing
-        bee.gameObject.transform.forward = this.transform.forward;
-
         // Apply some force to the bee
         var upwardForceFactor = Random.Range(0.0f, 0.1f);
         var forwardForceFactor = Random.Range(2.0f, 5.0f);
         var upwardForce = bee.gameObject.transform.up * upwardForceFactor;
         var forwardForce = bee.gameObject.transform.forward * forwardForceFactor;
-        bee.gameObject.GetComponent<Rigidbody>().AddForce(upwardForce + forwardForce, ForceMode.Impulse);
+        //bee.gameObject.GetComponent<Rigidbody>().AddForce(upwardForce + forwardForce, ForceMode.Impulse);
+
+        //Spawn an angry bee
+        var angryBee = Instantiate(angryBeePrefab);
+        angryBee.GetComponent<AngryBee>().targetBee = bee.gameObject;
     }
 }
