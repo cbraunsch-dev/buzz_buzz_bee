@@ -62,7 +62,7 @@ public class AngryBee : MonoBehaviour
             var currentProjectedPointOnSurface = transform.forward * planet.GetComponent<Planet>().Radius;
             var targetProjectedPointOnSurface = currentTarget.position;
 
-
+            // Moves bee without slowing it down as it approaches its destination
             transform.rotation = Quaternion.SlerpUnclamped(transform.rotation, targetRotation, (1 / Vector3.Distance(currentProjectedPointOnSurface, targetProjectedPointOnSurface)) * 0.1f);
         }
     }
