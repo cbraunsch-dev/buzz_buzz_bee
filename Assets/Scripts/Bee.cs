@@ -13,6 +13,9 @@ public class Bee : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
 
+        // Place bee on surface
+        transform.position = Vector3.up * planet.GetComponent<Planet>().Radius;
+
         MakePlayerUpright();
 
         // Give the bee a bit of a forward push
