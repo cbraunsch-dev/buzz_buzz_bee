@@ -59,13 +59,18 @@ public class AngryBee : MonoBehaviour
             var targetRotation = Quaternion.LookRotation(currentTarget.position - transform.position);
 
             // Smoothly rotate towards the target point.
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, speed * Time.deltaTime);
+            var currentProjectedPointOnSurface = transform.forward * planet.GetComponent<Planet>().Radius;
+            var targetProjectedPointOnSurface = currentTarget.position;
+
+
+            transform.rotation = Quaternion.SlerpUnclamped(transform.rotation, targetRotation, (1 / Vector3.Distance(currentProjectedPointOnSurface, targetProjectedPointOnSurface)) * 0.1f);
         }
     }
 
     private bool TimeToChasePlayer()
     {
-        return Vector3.Distance(beeOnSurface.transform.position, targetBee.transform.position) < distanceWhenToChasePlayer;
+        // return Vector3.Distance(beeOnSurface.transform.position, targetBee.transform.position) < distanceWhenToChasePlayer;
+        return false;
     }
 
     private Transform PickRandomFlower()
