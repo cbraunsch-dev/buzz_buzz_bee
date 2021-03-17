@@ -17,15 +17,6 @@ public class Bee : MonoBehaviour
 
         // Place bee on surface
         transform.position = Vector3.up * planet.GetComponent<Planet>().Radius;
-
-        MakePlayerUpright();
-    }
-
-    private void MakePlayerUpright()
-    {
-        var down = (planet.transform.position - transform.position).normalized;
-        var forward = Vector3.Cross(transform.right, down);
-        transform.rotation = Quaternion.LookRotation(-forward, -down);
     }
 
     // Update is called once per frame
@@ -47,7 +38,6 @@ public class Bee : MonoBehaviour
         var velocityChange = (targetVelocity - rb.velocity);
         velocityChange.x = Mathf.Clamp(velocityChange.x, -maxVelocityChange, maxVelocityChange);
         velocityChange.z = Mathf.Clamp(velocityChange.z, -maxVelocityChange, maxVelocityChange);
-
         rb.AddForce(velocityChange, ForceMode.VelocityChange);
 
         // Calculate direction bee model should face
