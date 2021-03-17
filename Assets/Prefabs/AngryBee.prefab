@@ -39,6 +39,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6860356425878606000}
   - component: {fileID: 6860356425878606001}
+  - component: {fileID: 9065754649019827036}
   m_Layer: 0
   m_Name: AngryBee
   m_TagString: Untagged
@@ -83,6 +84,25 @@ MonoBehaviour:
   testCubePrefab: {fileID: 8892788143559155784, guid: cb6de4069612e4d30b9c0a544a9f33a3,
     type: 3}
   timeBeforeChangePlayerTarget: 0.5
+--- !u!95 &9065754649019827036
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6860356425878606015}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 005b2d0d3f188449e8e1c2a493cdd34e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &6860356426443293248
 GameObject:
   m_ObjectHideFlags: 0

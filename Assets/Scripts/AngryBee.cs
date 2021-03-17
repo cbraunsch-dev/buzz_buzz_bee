@@ -32,18 +32,19 @@ public class AngryBee : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /*
         if(chasingPlayer)
         {
-            /*timeSpentChasingPlayer += Time.deltaTime;
+            timeSpentChasingPlayer += Time.deltaTime;
             if(timeSpentChasingPlayer > timeToSpendChasingPlayer)
             {
                 chasingPlayer = false;
                 Debug.Log("Stop chasing player");
-            }*/
+            }
 
             FollowPlayer();
         }
-       /* else
+        else
         {
             if(TimeToChasePlayer())
             {
@@ -59,9 +60,9 @@ public class AngryBee : MonoBehaviour
                 targetFlower = PickRandomFlower();
                 currentTarget = targetFlower;
             }
-        }*/
+        }
 
-        /*if(currentTarget != null)
+        if(currentTarget != null)
         {
             var targetRotation = Quaternion.LookRotation(currentTarget.position - transform.position);
 
