@@ -86,6 +86,8 @@ public class AngryBee : MonoBehaviour
 
         if(currentTargetPosition != Vector3.zero)
         {
+            beeOnSurface.TargetPosition = targetBee.transform.position;
+
             var targetRotation = Quaternion.LookRotation(currentTargetPosition - transform.position);
 
             // Smoothly rotate towards the target point.      

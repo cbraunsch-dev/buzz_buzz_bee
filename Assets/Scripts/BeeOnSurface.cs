@@ -9,7 +9,17 @@ public class BeeOnSurface : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("Spawn bee. Planet radius: " + planet.GetComponent<Planet>().Radius);
+        planet = GameObject.FindGameObjectWithTag(Tags.Ground);
         transform.position = transform.forward * planet.GetComponent<Planet>().Radius;
     }
+
+    void Update()
+    {
+        if(TargetPosition != null)
+        {
+            transform.LookAt(TargetPosition);
+        }
+    }
+
+    public Vector3 TargetPosition { get; set; }
 }
