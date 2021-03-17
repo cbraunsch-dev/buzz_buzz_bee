@@ -7,6 +7,7 @@ public class Bee : MonoBehaviour
     public GameObject planet;
     public float acceleration;
     private Rigidbody rb;
+    private Transform beeModel;
 
     // Start is called before the first frame update
     void Start()
@@ -15,6 +16,8 @@ public class Bee : MonoBehaviour
 
         // Place bee on surface
         transform.position = Vector3.up * planet.GetComponent<Planet>().Radius;
+
+        beeModel = transform.Find("SimpleBee");
 
         MakePlayerUpright();
 
@@ -27,6 +30,8 @@ public class Bee : MonoBehaviour
         var down = (planet.transform.position - transform.position).normalized;
         var forward = Vector3.Cross(transform.right, down);
         transform.rotation = Quaternion.LookRotation(-forward, -down);
+
+        //beeModel.up = -down;
     }
 
     // Update is called once per frame
@@ -44,7 +49,10 @@ public class Bee : MonoBehaviour
 
         var maxVelocityChange = 2.1f;
         var walkspeed = 5.0f;
+        var horizontalInput = Input.GetAxis("Horizontal");
+        var verticalInput = Input.GetAxis("Vertical");
         var targetVelocity = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        
         targetVelocity = transform.TransformDirection(targetVelocity);
         targetVelocity *= walkspeed;
 
@@ -54,6 +62,19 @@ public class Bee : MonoBehaviour
         velocityChange.x = Mathf.Clamp(velocityChange.x, -maxVelocityChange, maxVelocityChange);
         velocityChange.z = Mathf.Clamp(velocityChange.z, -maxVelocityChange, maxVelocityChange);
 
+        // Calculate direction bee model should face
+        var angle = Mathf.Atan2(verticalInput, -horizontalInput) * Mathf.Rad2Deg;
+        Debug.Log("Bee angle: " + angle);
+
+        var down = (planet.transform.position - transform.position).normalized;
+        var forward = Vector3.Cross(transform.right, down);
+        //transform.rotation = Quaternion.LookRotation(-forward, -down);
+
+        beeModel.rotation = Quaternion.AngleAxis(angle, transform.up) * Quaternion.LookRotation(-forward, -down);
+        //beeModel.forward = Quaternion.AngleAxis(angle, transform.up) * beeModel.forward;
+        //Quaternion.LookRotation(Quaternion.AngleAxis(angle, transform.up) * beeModel.forward, -(planet.transform.position - transform.position).normalized);
+        //beeModel.rotation = Quaternion.LookRotation(velocityChange);
+
         rb.AddForce(velocityChange, ForceMode.VelocityChange);
 
         // Clamp velocity
@@ -62,6 +83,8 @@ public class Bee : MonoBehaviour
         //var maxVelocY = Mathf.Clamp(rb.velocity.y, -maxVeloc, maxVeloc);
         var maxVelocZ = Mathf.Clamp(rb.velocity.z, -maxVeloc, maxVeloc);
         //rb.velocity = new Vector3(maxVelocX, rb.velocity.y, maxVelocZ);
+
+        
 
         MakePlayerUpright();
     }
