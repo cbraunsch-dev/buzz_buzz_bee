@@ -62,31 +62,23 @@ public class Bee : MonoBehaviour
         velocityChange.x = Mathf.Clamp(velocityChange.x, -maxVelocityChange, maxVelocityChange);
         velocityChange.z = Mathf.Clamp(velocityChange.z, -maxVelocityChange, maxVelocityChange);
 
+        rb.AddForce(velocityChange, ForceMode.VelocityChange);
+
         // Calculate direction bee model should face
         var angle = Mathf.Atan2(verticalInput, -horizontalInput) * Mathf.Rad2Deg;
         Debug.Log("Bee angle: " + angle);
 
         var down = (planet.transform.position - transform.position).normalized;
         var forward = Vector3.Cross(transform.right, down);
-        //transform.rotation = Quaternion.LookRotation(-forward, -down);
-
+        transform.rotation = Quaternion.LookRotation(-forward, -down);
         beeModel.rotation = Quaternion.AngleAxis(angle, transform.up) * Quaternion.LookRotation(-forward, -down);
+
         //beeModel.forward = Quaternion.AngleAxis(angle, transform.up) * beeModel.forward;
         //Quaternion.LookRotation(Quaternion.AngleAxis(angle, transform.up) * beeModel.forward, -(planet.transform.position - transform.position).normalized);
         //beeModel.rotation = Quaternion.LookRotation(velocityChange);
 
-        rb.AddForce(velocityChange, ForceMode.VelocityChange);
-
-        // Clamp velocity
-        var maxVeloc = 2.0f;
-        var maxVelocX = Mathf.Clamp(rb.velocity.x, -maxVeloc, maxVeloc);
-        //var maxVelocY = Mathf.Clamp(rb.velocity.y, -maxVeloc, maxVeloc);
-        var maxVelocZ = Mathf.Clamp(rb.velocity.z, -maxVeloc, maxVeloc);
-        //rb.velocity = new Vector3(maxVelocX, rb.velocity.y, maxVelocZ);
-
         
-
-        MakePlayerUpright();
+        //MakePlayerUpright();
     }
 
     private void OnCollisionEnter(Collision collision)

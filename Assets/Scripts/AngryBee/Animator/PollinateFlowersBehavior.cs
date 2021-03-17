@@ -11,6 +11,7 @@ public class PollinateFlowersBehavior : StateMachineBehaviour
     private Transform targetFlower;
     private float distanceWhenToFindNewFlower = 0.5f;
     private float speed = 1.0f;
+    private AngryBee angryBee;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -18,6 +19,7 @@ public class PollinateFlowersBehavior : StateMachineBehaviour
         planet = GameObject.FindGameObjectWithTag(Tags.Ground);
         beeOnSurface = animator.gameObject.transform.Find("BeeOnSurface").GetComponent<BeeOnSurface>();
         targetBee = animator.gameObject.GetComponent<AngryBee>().targetBee;
+        angryBee = animator.gameObject.GetComponent<AngryBee>();
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -28,10 +30,10 @@ public class PollinateFlowersBehavior : StateMachineBehaviour
             Debug.Log("Start chasing player");
             animator.SetTrigger(Triggers.FoundPlayer);
         }
-        else if (TimeToSelectFlowerTarget())
+        else if (AngryBee.TimeToSelectFlowerTarget(targetFlower, beeOnSurface.transform.position, distanceWhenToFindNewFlower))
         {
             Debug.Log("Find a new flower");
-            targetFlower = PickRandomFlower();
+            targetFlower = AngryBee.PickRandomFlower(planet.GetComponent<Planet>());
             beeOnSurface.TargetPosition = targetFlower.position;
         }
 
@@ -47,26 +49,6 @@ public class PollinateFlowersBehavior : StateMachineBehaviour
     private bool CloseEnoughToPlayer()
     {
         return Vector3.Distance(beeOnSurface.transform.position, targetBee.transform.position) < distanceWhenToChasePlayer;
-    }
-
-    private Transform PickRandomFlower()
-    {
-        // Pick a random flower to target
-        var randomFlowerIndex = Random.Range(0, planet.GetComponent<Planet>().Flowers.Count);
-        var targetFlower = planet.GetComponent<Planet>().Flowers[randomFlowerIndex];
-        return targetFlower.transform;
-    }
-
-    private bool TimeToSelectFlowerTarget()
-    {
-        // Select a new target if we currently don't have one
-        if (targetFlower == null)
-        {
-            return true;
-        }
-
-        // Select a new target if we have reached our current target or are close enough to our current target
-        return Vector3.Distance(beeOnSurface.transform.position, targetFlower.position) < distanceWhenToFindNewFlower;
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
