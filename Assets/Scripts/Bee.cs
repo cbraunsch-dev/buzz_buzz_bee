@@ -45,7 +45,10 @@ public class Bee : MonoBehaviour
         var down = (planet.transform.position - transform.position).normalized;
         var forward = Vector3.Cross(transform.right, down);
         transform.rotation = Quaternion.LookRotation(-forward, -down);
-        beeModel.rotation = Quaternion.AngleAxis(angle, transform.up) * Quaternion.LookRotation(-forward, -down);
+        if (verticalInput != 0.0f || horizontalInput != 0.0f)
+        {
+            beeModel.rotation = Quaternion.AngleAxis(angle, transform.up) * Quaternion.LookRotation(-forward, -down);
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
