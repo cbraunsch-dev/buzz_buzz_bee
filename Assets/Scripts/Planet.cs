@@ -7,15 +7,42 @@ public class Planet : MonoBehaviour
     public GameObject bee;
     public GameObject flower1Prefab;
 
-    private List<Flower> flowers = new List<Flower>();
+    private List<GameObject> allFlowers = new List<GameObject>();
+    private List<GameObject> redFlowers = new List<GameObject>();
+    private List<GameObject> greenFlowers = new List<GameObject>();
+    private List<GameObject> blueFlowers = new List<GameObject>();
+    private List<GameObject> yellowFlowers = new List<GameObject>();
 
     // Start is called before the first frame update
     void Start()
     {
-        for(int i = 0; i < 15; i++)
+        redFlowers = new List<GameObject>(GameObject.FindGameObjectsWithTag(Tags.RedFlower));
+        redFlowers.ForEach(flower =>
         {
-            flowers.Add(SpawnFlower());
-        }
+            allFlowers.Add(flower);
+        });
+        greenFlowers = new List<GameObject>(GameObject.FindGameObjectsWithTag(Tags.GreenFlower));
+        greenFlowers.ForEach(flower =>
+        {
+            allFlowers.Add(flower);
+        });
+        blueFlowers = new List<GameObject>(GameObject.FindGameObjectsWithTag(Tags.BlueFlower));
+        blueFlowers.ForEach(flower =>
+        {
+            allFlowers.Add(flower);
+        });
+        yellowFlowers = new List<GameObject>(GameObject.FindGameObjectsWithTag(Tags.YellowFlower));
+        yellowFlowers.ForEach(flower =>
+        {
+            allFlowers.Add(flower);
+        });
+
+        // Make red flowers bloom first
+        redFlowers.ForEach(flower =>
+        {
+            // It is kinda dangerous to trigger the state machine from the outside but I currently can't think of a better way to do this
+            flower.GetComponent<Animator>().SetTrigger(Triggers.StartGrowing);
+        });
     }
 
     // Update is called once per frame
@@ -43,11 +70,11 @@ public class Planet : MonoBehaviour
         }
     }
 
-    public List<Flower> Flowers
+    public List<GameObject> Flowers
     {
         get
         {
-            return this.flowers;
+            return this.allFlowers;
         }
     }
 }

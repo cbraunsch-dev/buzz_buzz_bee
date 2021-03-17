@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Ground
   - Flower
+  - RedFlower
+  - BlueFlower
+  - YellowFlower
+  - GreenFlower
   layers:
   - Default
   - TransparentFX
