@@ -31,6 +31,7 @@ public class Planet : MonoBehaviour
     private string currentColorToPollinate = Tags.RedFlower;
 
     private Hud hud;
+    private bool hudUpdatedWithInitialValues = false;
 
     // Start is called before the first frame update
     void Start()
@@ -59,9 +60,6 @@ public class Planet : MonoBehaviour
 
         GrowNextBatchOfFlowers(numberOfNewFlowersThatShouldGrow);
         numberOfNewFlowersThatShouldGrow++;
-
-        hud = GameObject.FindGameObjectWithTag(Tags.HUD).GetComponent<Hud>();
-        hud.UpdatePercentPollinated(0);
     }
 
     private void GrowNextBatchOfFlowers(int numberOfFlowersToGrow)
@@ -85,7 +83,13 @@ public class Planet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(!hudUpdatedWithInitialValues)
+        {
+            hudUpdatedWithInitialValues = true;
+            hud = GameObject.FindGameObjectWithTag(Tags.HUD).GetComponent<Hud>();
+            hud.UpdatePercentPollinated(0);
+            hud.UpdateColorToPollinate(currentColorToPollinate);
+        }
     }
 
     private void PlayerShouldPollinateNewColor(string color)
@@ -125,18 +129,21 @@ public class Planet : MonoBehaviour
             // Time to pollinate next set of flowers
             currentColorToPollinate = Tags.GreenFlower;
             PlayerShouldPollinateNewColor(currentColorToPollinate);
+            hud.UpdateColorToPollinate(currentColorToPollinate);
         }
         else if(currentColorToPollinate == Tags.GreenFlower && numberOfPollinatedGreenFlowers == greenFlowers.Count)
         {
             // Time to pollinate next set of flowers
             currentColorToPollinate = Tags.BlueFlower;
             PlayerShouldPollinateNewColor(currentColorToPollinate);
+            hud.UpdateColorToPollinate(currentColorToPollinate);
         }
         else if (currentColorToPollinate == Tags.BlueFlower && numberOfPollinatedBlueFlowers == blueFlowers.Count)
         {
             // Time to pollinate next set of flowers
             currentColorToPollinate = Tags.YellowFlower;
             PlayerShouldPollinateNewColor(currentColorToPollinate);
+            hud.UpdateColorToPollinate(currentColorToPollinate);
         }
 
         float totalNrOfPollinatedFlowers = numberOfPollinatedRedFlowers + numberOfPollinatedGreenFlowers + numberOfPollinatedBlueFlowers + numberOfPollinatedYellowFlowers;
