@@ -7,6 +7,7 @@ public class BudBehavior : StateMachineBehaviour
     private GameObject flowerBud;
     private GameObject flowerBloomed;
     private GameObject flowerPollinated;
+    
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

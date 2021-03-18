@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FullyGrownBehavior : StateMachineBehaviour
+public class PollinatedBehavior : StateMachineBehaviour
 {
     private GameObject flowerBud;
     private GameObject flowerBloomed;
@@ -16,10 +16,13 @@ public class FullyGrownBehavior : StateMachineBehaviour
         flowerPollinated = animator.gameObject.transform.Find("FlowerPollinated").gameObject;
 
         flowerBud.SetActive(false);
-        flowerBloomed.SetActive(true);
-        flowerPollinated.SetActive(false);
+        flowerBloomed.SetActive(false);
+        flowerPollinated.SetActive(true);
 
-        animator.gameObject.GetComponent<Flower>().AbleToGetPollinated = true;
+        animator.gameObject.GetComponent<Flower>().AbleToGetPollinated = false;
+        animator.gameObject.GetComponent<Flower>().DidPollinateFlower();
+
+        Debug.Log("Flower pollinated");
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

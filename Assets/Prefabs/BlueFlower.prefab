@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5203443636742782886}
   - component: {fileID: 5549595791999836718}
   - component: {fileID: 8063539299012827736}
+  - component: {fileID: 230487320369274049}
   m_Layer: 0
   m_Name: BlueFlower
   m_TagString: BlueFlower
@@ -67,6 +68,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!136 &230487320369274049
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5203443636742782887}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &2615627519676514166
 PrefabInstance:
   m_ObjectHideFlags: 0

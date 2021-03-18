@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1745344094501711781}
   - component: {fileID: 2092751778195927597}
   - component: {fileID: 4605387031693462107}
+  - component: {fileID: 9053440088408861706}
   m_Layer: 0
   m_Name: RedFlower
   m_TagString: RedFlower
@@ -67,6 +68,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!136 &9053440088408861706
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1745344094501711780}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &1745344094510475321
 PrefabInstance:
   m_ObjectHideFlags: 0

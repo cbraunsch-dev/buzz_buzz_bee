@@ -57,9 +57,10 @@ public class Bee : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == Tags.Flower)
+        if(other.tag == Tags.RedFlower || other.tag == Tags.GreenFlower ||
+            other.tag == Tags.BlueFlower || other.tag == Tags.YellowFlower)
         {
-            other.gameObject.GetComponent<Flower>().ReactToCollisionWithBee(this);
+            other.gameObject.GetComponent<Flower>().ReactToCollisionWithBee();
         }
     }
 }
