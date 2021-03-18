@@ -28,7 +28,7 @@ public class GrowingBehavior : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        timeSpentGrowing++;
+        timeSpentGrowing += Time.deltaTime;
         if (timeSpentGrowing >= timeNeededToGrow)
         {
             animator.SetTrigger(Triggers.Grown);

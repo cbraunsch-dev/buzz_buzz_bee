@@ -23,7 +23,7 @@ public class Flower : MonoBehaviour
 
     public void ReactToCollisionWithBee()
     {
-        Debug.Log("Bee has hit flower");
+        Debug.Log("Bee has hit flower - able to get pollinated: " + this.AbleToGetPollinated + " - tag: " + this.tag + " currently pollinating tag: " + planet.GetComponent<Planet>().FlowerColorCurrentlyBeingPollinated);
         if(AbleToGetPollinated && planet.GetComponent<Planet>().FlowerColorCurrentlyBeingPollinated == this.tag)
         {
             // Not so clean triggering these transitions from outside as these triggers then remain
