@@ -10,6 +10,8 @@ TagManager:
   - BlueFlower
   - YellowFlower
   - GreenFlower
+  - Enemy
+  - HUD
   layers:
   - Default
   - TransparentFX

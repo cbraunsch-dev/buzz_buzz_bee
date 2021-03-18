@@ -24,10 +24,10 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1692182753608857323}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 1.31
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6860356425878606015
 GameObject:
@@ -220,6 +220,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SimpleBee
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: af19590cb8edc499ca8f50d4b680c863,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: af19590cb8edc499ca8f50d4b680c863, type: 3}

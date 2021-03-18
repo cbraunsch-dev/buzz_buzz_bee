@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Bee : MonoBehaviour
 {
@@ -8,15 +9,20 @@ public class Bee : MonoBehaviour
     public float acceleration;
     private Rigidbody rb;
     private Transform beeModel;
+    private float health = 100.0f;
+    private Hud hud;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         beeModel = transform.Find("SimpleBee");
+        hud = GameObject.FindGameObjectWithTag(Tags.HUD).GetComponent<Hud>();
 
         // Place bee on surface
         transform.position = Vector3.up * planet.GetComponent<Planet>().Radius;
+
+        hud.UpdateHealth(health);
     }
 
     // Update is called once per frame
@@ -61,6 +67,18 @@ public class Bee : MonoBehaviour
             other.tag == Tags.BlueFlower || other.tag == Tags.YellowFlower)
         {
             other.gameObject.GetComponent<Flower>().ReactToCollisionWithBee();
+        }
+
+        if(other.tag == Tags.Enemy)
+        {
+            // Take off health
+            health -= 10.0f;
+            hud.UpdateHealth(health);
+            if(health <= 0.0f)
+            {
+                // Game over. Reload scene
+                SceneManager.LoadScene("Level1");
+            }
         }
     }
 }
