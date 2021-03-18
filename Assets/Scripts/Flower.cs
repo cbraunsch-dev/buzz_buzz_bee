@@ -38,4 +38,10 @@ public class Flower : MonoBehaviour
     {
         planet.GetComponent<Planet>().FlowerWasPollinated(gameObject.tag);
     }
+
+    public void SpawnAngryBee()
+    {
+        var angryBee = Instantiate(angryBeePrefab);
+        angryBee.GetComponent<AngryBee>().targetBee = GameObject.FindGameObjectWithTag(Tags.Player);
+    }
 }

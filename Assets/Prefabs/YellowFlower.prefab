@@ -48,7 +48,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc14675b896434ee9bd170cb4b906d1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  angryBeePrefab: {fileID: 0}
+  angryBeePrefab: {fileID: 6860356425878606015, guid: b7bb7b559fa504dc7b77fdd2b1443404,
+    type: 3}
 --- !u!95 &4533575883762683605
 Animator:
   serializedVersion: 3

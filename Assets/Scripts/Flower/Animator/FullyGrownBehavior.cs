@@ -20,6 +20,7 @@ public class FullyGrownBehavior : StateMachineBehaviour
         flowerPollinated.SetActive(false);
 
         animator.gameObject.GetComponent<Flower>().AbleToGetPollinated = true;
+        animator.gameObject.GetComponent<Flower>().SpawnAngryBee();
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
