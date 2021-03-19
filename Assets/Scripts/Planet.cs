@@ -21,7 +21,6 @@ public class Planet : MonoBehaviour
     private List<GameObject> yellowFlowers = new List<GameObject>();
     private int numberOfNewFlowersThatShouldGrow = 3;
     private int indexOfNextFlowerToGrow = 0;
-    private int numberOfFlowersThatJustGrew = 0;
 
     private int numberOfPollinatedRedFlowers = 0;
     private int numberOfPollinatedGreenFlowers = 0;
@@ -63,7 +62,8 @@ public class Planet : MonoBehaviour
     }
 
     private void GrowNextBatchOfFlowers(int numberOfFlowersToGrow)
-    {   
+    {
+        int numberOfFlowersThatJustGrew = 0;
         while (numberOfFlowersThatJustGrew < numberOfFlowersToGrow)
         {
             if (indexOfNextFlowerToGrow < allFlowers.Count)

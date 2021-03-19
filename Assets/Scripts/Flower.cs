@@ -41,7 +41,7 @@ public class Flower : MonoBehaviour
 
     public void SpawnAngryBee()
     {
-        var angryBee = Instantiate(angryBeePrefab);
-        angryBee.GetComponent<AngryBee>().targetBee = GameObject.FindGameObjectWithTag(Tags.Player);
+        //var angryBee = Instantiate(angryBeePrefab);
+        //angryBee.GetComponent<AngryBee>().targetBee = GameObject.FindGameObjectWithTag(Tags.Player);
     }
 }
