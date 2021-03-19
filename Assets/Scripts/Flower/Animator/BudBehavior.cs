@@ -19,6 +19,8 @@ public class BudBehavior : StateMachineBehaviour
         flowerBud.SetActive(true);
         flowerBloomed.SetActive(false);
         flowerPollinated.SetActive(false);
+
+        flowerBud.transform.localScale *= 0.75f;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
