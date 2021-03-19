@@ -48,9 +48,15 @@ public class Planet : MonoBehaviour
     private Hud hud;
     private bool hudUpdatedWithInitialValues = false;
 
+    // Values that determine when to spawn new friendly insects
     private int nrToPollinateBeforeSpawnNewInsect = 5;
-    private int spawnInsectFrequencyFactor = 1;    // The amount by which nrToPollinateBeforeSpawnNewBee changes when a flower gets pollinated
+    private int spawnInsectFrequencyFactor = 1;    // The amount by which nrToPollinateBeforeSpawnNewInsect changes when a flower gets pollinated
     private int nrPollinatedSinceLastInsectSpawned = 0;
+
+    // Values that determine when to spawn new angry bees
+    private int nrToPollinateBeforeSpawnNewAngryBee = 10;
+    private int spawnAngryBeeFrequencyFactor = 1; // The amount by which nrToPollinateBeforeSpawnNewAngryBee changes when a flower gets pollinated
+    private int nrPollinatedSinceLastBeeSpawned = 0;
 
     private GameMode gameMode = GameMode.TimeTrial;
 
@@ -89,7 +95,7 @@ public class Planet : MonoBehaviour
         GrowNextBatchOfFlowers(numberOfNewFlowersThatShouldGrow);
         numberOfNewFlowersThatShouldGrow++;
 
-        // Spawn a bee to kick things off in an interesting fashion
+        // Spawn an angry bee to kick things off in an interesting fashion
         SpawnAngryBee();
     }
 
@@ -216,8 +222,9 @@ public class Planet : MonoBehaviour
         float percentagePollinated = totalNrOfPollinatedFlowers / allFlowers.Count * 100;
         hud.UpdatePercentPollinated((int)percentagePollinated);
 
-        // See if it's time to spawn a new angry bee
-        SpawnNewInsectIfNecessary();
+        // See if it's time to spawn a insect or new angry bee
+        SpawnNewFriendlyInsectIfNecessary();
+        SpawnNewAngryBeeIfNecessary();
 
         if(gameMode == GameMode.TimeTrial && percentagePollinated >= 100) 
         {
@@ -229,7 +236,7 @@ public class Planet : MonoBehaviour
         }
     }
 
-    private void SpawnNewInsectIfNecessary()
+    private void SpawnNewFriendlyInsectIfNecessary()
     {
         nrPollinatedSinceLastInsectSpawned++;
         if (nrPollinatedSinceLastInsectSpawned >= nrToPollinateBeforeSpawnNewInsect)
@@ -241,6 +248,22 @@ public class Planet : MonoBehaviour
             if (nrToPollinateBeforeSpawnNewInsect < 1)
             {
                 nrToPollinateBeforeSpawnNewInsect = 1;
+            }
+        }
+    }
+
+    private void SpawnNewAngryBeeIfNecessary()
+    {
+        nrPollinatedSinceLastBeeSpawned++;
+        if (nrPollinatedSinceLastBeeSpawned >= nrToPollinateBeforeSpawnNewAngryBee)
+        {
+            // Each time it's time to spawn a new bee, we increase the frequency by which bees are spawned
+            SpawnAngryBee();
+            nrPollinatedSinceLastBeeSpawned = 0;
+            nrToPollinateBeforeSpawnNewAngryBee -= spawnAngryBeeFrequencyFactor;
+            if (nrToPollinateBeforeSpawnNewAngryBee < 1)
+            {
+                nrToPollinateBeforeSpawnNewAngryBee = 1;
             }
         }
     }
