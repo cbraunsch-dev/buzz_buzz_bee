@@ -125,10 +125,7 @@ public class Planet : MonoBehaviour
             totalPenaltyInSeconds += 3f;    //Add a penalty of 3 seconds
             float minutes = (int)(totalPenaltyInSeconds / 60f);
             float seconds = (int)(totalPenaltyInSeconds % 60f);
-
-            // No idea why we have to re-obtain the HUd here and why we can't use the global variable
-            var theHud = GameObject.FindGameObjectWithTag(Tags.HUD).GetComponent<Hud>();
-            theHud.UpdatePenalty(minutes, seconds);
+            hud.UpdatePenalty(minutes, seconds);
         }
     }
 
