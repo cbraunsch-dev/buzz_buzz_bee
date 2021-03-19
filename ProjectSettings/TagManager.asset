@@ -12,6 +12,7 @@ TagManager:
   - GreenFlower
   - Enemy
   - HUD
+  - PenaltyFlash
   layers:
   - Default
   - TransparentFX

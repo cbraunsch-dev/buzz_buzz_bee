@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
+using DG.Tweening;
 
 public class Hud : MonoBehaviour
 {

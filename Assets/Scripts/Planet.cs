@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class Planet : MonoBehaviour
 {
@@ -60,6 +61,8 @@ public class Planet : MonoBehaviour
 
     private GameMode gameMode = GameMode.TimeTrial;
 
+    private CanvasGroup penaltyFlash;
+
     // Stuff for time-trial
     private float totalPenaltyInSeconds = 0f;
 
@@ -69,6 +72,7 @@ public class Planet : MonoBehaviour
     void Start()
     {
         hud = GameObject.FindGameObjectWithTag(Tags.HUD).GetComponent<Hud>();
+        penaltyFlash = GameObject.FindGameObjectWithTag(Tags.PenaltyFlash).GetComponent<CanvasGroup>();
 
         // This order here is important when determining which set of flowers to pollinate next (see FlowerWasPollinated())
         redFlowers = new List<GameObject>(GameObject.FindGameObjectsWithTag(Tags.RedFlower));
@@ -126,6 +130,15 @@ public class Planet : MonoBehaviour
             float minutes = (int)(totalPenaltyInSeconds / 60f);
             float seconds = (int)(totalPenaltyInSeconds % 60f);
             hud.UpdatePenalty(minutes, seconds);
+            ShowPenaltyFlash();
+        }
+    }
+
+    private void ShowPenaltyFlash()
+    {
+        if (penaltyFlash.alpha == 0.0f)
+        {
+            penaltyFlash.DOFade(1.0f, 0.25f).SetLoops(2, LoopType.Yoyo);
         }
     }
 
