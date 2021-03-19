@@ -34,10 +34,12 @@ public class BackOffPlayerBehavior : StateMachineBehaviour
         }
         if (targetFlower != null)
         {
+            // Move bee at a constant pace towards destination, regardless of how far away it is
             var targetRotation = Quaternion.LookRotation(targetFlower.position - animator.gameObject.transform.position);
+            var currentProjectedPointOnSurface = animator.gameObject.transform.forward * planet.GetComponent<Planet>().Radius;
+            var targetProjectedPointOnSurface = targetFlower.position;
 
-            // Smoothly rotate towards the target point.
-            animator.gameObject.transform.rotation = Quaternion.Slerp(animator.gameObject.transform.rotation, targetRotation, speed * Time.deltaTime);
+            animator.gameObject.transform.rotation = Quaternion.SlerpUnclamped(animator.gameObject.transform.rotation, targetRotation, (1 / Vector3.Distance(currentProjectedPointOnSurface, targetProjectedPointOnSurface)) * 0.05f);
         }
         amountOfTimeSinceStartedBackingOff += Time.deltaTime;
         if(amountOfTimeSinceStartedBackingOff >= timeAfterWhenCanStartChasingPlayerAgain)
