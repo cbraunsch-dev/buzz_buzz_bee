@@ -71,13 +71,21 @@ public class Bee : MonoBehaviour
 
         if(other.tag == Tags.Enemy)
         {
-            // Take off health
-            health -= 10.0f;
-            hud.UpdateHealth(health);
-            if(health <= 0.0f)
+            if(planet.GetComponent<Planet>().CurrentGameMode == Planet.GameMode.TimeTrial)
             {
-                // Game over. Reload scene
-                SceneManager.LoadScene("Level1");
+                // Add penalty time to current time
+                planet.GetComponent<Planet>().AddPenaltyTime();
+            }
+            else if(planet.GetComponent<Planet>().CurrentGameMode == Planet.GameMode.Survival)
+            {
+                // Take off health
+                health -= 10.0f;
+                hud.UpdateHealth(health);
+                if (health <= 0.0f)
+                {
+                    // Game over. Reload scene
+                    SceneManager.LoadScene("Level1");
+                }
             }
         }
     }

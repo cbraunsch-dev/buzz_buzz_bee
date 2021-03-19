@@ -8,6 +8,7 @@ public class Hud : MonoBehaviour
     private TextMeshProUGUI healthText;
     private TextMeshProUGUI percentPollinatedText;
     private TextMeshProUGUI timeText;
+    private TextMeshProUGUI penaltyText;
     private TextMeshProUGUI colorToPollinateText;
 
     // Start is called before the first frame update
@@ -17,6 +18,7 @@ public class Hud : MonoBehaviour
         percentPollinatedText = transform.Find("Pollinated").GetComponent<TextMeshProUGUI>();
         colorToPollinateText = transform.Find("ColorToPollinate").GetComponent<TextMeshProUGUI>();
         timeText = transform.Find("Time").GetComponent<TextMeshProUGUI>();
+        penaltyText = transform.Find("Penalty").GetComponent<TextMeshProUGUI>();
     }
 
     // Update is called once per frame
@@ -29,12 +31,14 @@ public class Hud : MonoBehaviour
     {
         healthText.gameObject.SetActive(false);
         percentPollinatedText.gameObject.SetActive(true);
+        penaltyText.gameObject.SetActive(false);    //We don't want this to be visible at first. Only once player received first penalty
     }
 
     public void PrepareUIForSurvival()
     {
         healthText.gameObject.SetActive(true);
         percentPollinatedText.gameObject.SetActive(false);
+        penaltyText.gameObject.SetActive(false);
     }
 
     public void UpdateColorToPollinate(string color)
@@ -85,6 +89,15 @@ public class Hud : MonoBehaviour
         if(timeText != null)
         {
             timeText.text = "Time: " + minutes.ToString("00") + ":" + seconds.ToString("00");
+        }
+    }
+
+    public void UpdatePenalty(float minutes, float seconds)
+    {
+        if(penaltyText != null)
+        {
+            penaltyText.gameObject.SetActive(true);
+            penaltyText.text = "+ " + minutes.ToString("00") + ":" + seconds.ToString("00");
         }
     }
 }

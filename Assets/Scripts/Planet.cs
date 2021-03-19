@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,6 +12,14 @@ public class Planet : MonoBehaviour
         get
         {
             return currentColorToPollinate;
+        }
+    }
+
+    public GameMode CurrentGameMode
+    {
+        get
+        {
+            return this.gameMode;
         }
     }
 
@@ -34,9 +43,16 @@ public class Planet : MonoBehaviour
 
     private GameMode gameMode = GameMode.TimeTrial;
 
+    // Stuff for time-trial
+    private float totalPenaltyInSeconds = 0f;
+    private float penaltyMinutes = 0f;
+    private float penaltySeconds = 0f;
+
     // Start is called before the first frame update
     void Start()
     {
+        hud = GameObject.FindGameObjectWithTag(Tags.HUD).GetComponent<Hud>();
+
         // This order here is important when determining which set of flowers to pollinate next (see FlowerWasPollinated())
         redFlowers = new List<GameObject>(GameObject.FindGameObjectsWithTag(Tags.RedFlower));
         redFlowers.ForEach(flower =>
@@ -82,13 +98,23 @@ public class Planet : MonoBehaviour
         }
     }
 
+    internal void AddPenaltyTime()
+    {
+        totalPenaltyInSeconds += 3f;    //Add a penalty of 3 seconds
+        float minutes = (int)(totalPenaltyInSeconds / 60f);
+        float seconds = (int)(totalPenaltyInSeconds % 60f);
+
+        // No idea why we have to re-obtain the HUd here and why we can't use the global variable
+        var theHud = GameObject.FindGameObjectWithTag(Tags.HUD).GetComponent<Hud>();
+        theHud.UpdatePenalty(minutes, seconds);
+    }
+
     // Update is called once per frame
     void Update()
     {
         if(!hudUpdatedWithInitialValues)
         {
             hudUpdatedWithInitialValues = true;
-            hud = GameObject.FindGameObjectWithTag(Tags.HUD).GetComponent<Hud>();
             hud.UpdatePercentPollinated(0);
             hud.UpdateTime(0, 0);
             hud.UpdateColorToPollinate(currentColorToPollinate);
