@@ -2,10 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Planet : MonoBehaviour
 {
     public GameObject angryBeePrefab;
+    public GameObject activeGameCam;
+    public GameObject gameFinishedCam;
 
     public string FlowerColorCurrentlyBeingPollinated
     {
@@ -49,6 +52,8 @@ public class Planet : MonoBehaviour
 
     // Stuff for time-trial
     private float totalPenaltyInSeconds = 0f;
+
+    private bool gameFinished = false;
 
     // Start is called before the first frame update
     void Start()
@@ -105,13 +110,16 @@ public class Planet : MonoBehaviour
 
     internal void AddPenaltyTime()
     {
-        totalPenaltyInSeconds += 3f;    //Add a penalty of 3 seconds
-        float minutes = (int)(totalPenaltyInSeconds / 60f);
-        float seconds = (int)(totalPenaltyInSeconds % 60f);
+        if (!gameFinished)
+        {
+            totalPenaltyInSeconds += 3f;    //Add a penalty of 3 seconds
+            float minutes = (int)(totalPenaltyInSeconds / 60f);
+            float seconds = (int)(totalPenaltyInSeconds % 60f);
 
-        // No idea why we have to re-obtain the HUd here and why we can't use the global variable
-        var theHud = GameObject.FindGameObjectWithTag(Tags.HUD).GetComponent<Hud>();
-        theHud.UpdatePenalty(minutes, seconds);
+            // No idea why we have to re-obtain the HUd here and why we can't use the global variable
+            var theHud = GameObject.FindGameObjectWithTag(Tags.HUD).GetComponent<Hud>();
+            theHud.UpdatePenalty(minutes, seconds);
+        }
     }
 
     // Update is called once per frame
@@ -133,10 +141,17 @@ public class Planet : MonoBehaviour
             }
         }
 
-        // Keep track of time and show it in UI
-        float minutes = (int)(Time.time / 60f);
-        float seconds = (int)(Time.time % 60f);
-        hud.UpdateTime(minutes, seconds);
+        if (!gameFinished)
+        {
+            // Keep track of time and show it in UI
+            float minutes = (int)(Time.time / 60f);
+            float seconds = (int)(Time.time % 60f);
+            hud.UpdateTime(minutes, seconds);
+        }
+        if(gameFinished && Input.GetMouseButtonDown(0))
+        {
+            SceneManager.LoadScene("Level1");
+        }
     }
 
     private void PlayerShouldPollinateNewColor(string color)
@@ -199,6 +214,15 @@ public class Planet : MonoBehaviour
 
         // See if it's time to spawn a new angry bee
         SpawnNewAngryBeeIfNecessary();
+
+        if(gameMode == GameMode.TimeTrial && percentagePollinated >= 100) 
+        {
+            // We are done
+            gameFinished = true;
+            activeGameCam.SetActive(false);
+            gameFinishedCam.SetActive(true);
+            hud.ShowGameFinishedUI();
+        }
     }
 
     private void SpawnNewAngryBeeIfNecessary()
@@ -255,6 +279,6 @@ public class Planet : MonoBehaviour
     public enum GameMode
     {
         TimeTrial,
-        Survival
+        Survival    // Currently not implemented
     }
 }

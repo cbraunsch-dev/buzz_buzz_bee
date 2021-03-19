@@ -10,6 +10,7 @@ public class Hud : MonoBehaviour
     private TextMeshProUGUI timeText;
     private TextMeshProUGUI penaltyText;
     private TextMeshProUGUI colorToPollinateText;
+    private TextMeshProUGUI congratulationsText;
 
     // Start is called before the first frame update
     void Start()
@@ -19,6 +20,7 @@ public class Hud : MonoBehaviour
         colorToPollinateText = transform.Find("ColorToPollinate").GetComponent<TextMeshProUGUI>();
         timeText = transform.Find("Time").GetComponent<TextMeshProUGUI>();
         penaltyText = transform.Find("Penalty").GetComponent<TextMeshProUGUI>();
+        congratulationsText = transform.Find("Congratulations").GetComponent<TextMeshProUGUI>();
     }
 
     // Update is called once per frame
@@ -32,6 +34,7 @@ public class Hud : MonoBehaviour
         healthText.gameObject.SetActive(false);
         percentPollinatedText.gameObject.SetActive(true);
         penaltyText.gameObject.SetActive(false);    //We don't want this to be visible at first. Only once player received first penalty
+        congratulationsText.gameObject.SetActive(false);
     }
 
     public void PrepareUIForSurvival()
@@ -39,6 +42,7 @@ public class Hud : MonoBehaviour
         healthText.gameObject.SetActive(true);
         percentPollinatedText.gameObject.SetActive(false);
         penaltyText.gameObject.SetActive(false);
+        congratulationsText.gameObject.SetActive(false);
     }
 
     public void UpdateColorToPollinate(string color)
@@ -99,5 +103,10 @@ public class Hud : MonoBehaviour
             penaltyText.gameObject.SetActive(true);
             penaltyText.text = "+ " + minutes.ToString("00") + ":" + seconds.ToString("00");
         }
+    }
+
+    public void ShowGameFinishedUI()
+    {
+        congratulationsText.gameObject.SetActive(true);
     }
 }
