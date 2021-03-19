@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class Planet : MonoBehaviour
 {
-    public GameObject bee;
-    public GameObject flower1Prefab;
+    public GameObject angryBeePrefab;
+
     public string FlowerColorCurrentlyBeingPollinated
     {
         get
@@ -41,12 +41,14 @@ public class Planet : MonoBehaviour
     private Hud hud;
     private bool hudUpdatedWithInitialValues = false;
 
+    private int nrToPollinateBeforeSpawnNewBee = 5;
+    private int spawnBeeFrequencyFactor = 1;    // The amount by which nrToPollinateBeforeSpawnNewBee changes when a flower gets pollinated
+    private int nrPollinatedSinceLastBeeSpawned = 0;
+
     private GameMode gameMode = GameMode.TimeTrial;
 
     // Stuff for time-trial
     private float totalPenaltyInSeconds = 0f;
-    private float penaltyMinutes = 0f;
-    private float penaltySeconds = 0f;
 
     // Start is called before the first frame update
     void Start()
@@ -191,6 +193,20 @@ public class Planet : MonoBehaviour
         float totalNrOfPollinatedFlowers = numberOfPollinatedRedFlowers + numberOfPollinatedGreenFlowers + numberOfPollinatedBlueFlowers + numberOfPollinatedYellowFlowers;
         float percentagePollinated = totalNrOfPollinatedFlowers / allFlowers.Count * 100;
         hud.UpdatePercentPollinated((int)percentagePollinated);
+
+        // See if it's time to spawn a new angry bee
+        nrPollinatedSinceLastBeeSpawned++;
+        if(nrPollinatedSinceLastBeeSpawned >= nrToPollinateBeforeSpawnNewBee)
+        {
+            // Each time it's time to spawn a new bee, we increase the frequency by which angry bees are spawned
+            SpawnAngryBee();
+            nrPollinatedSinceLastBeeSpawned = 0;
+            nrToPollinateBeforeSpawnNewBee -= spawnBeeFrequencyFactor;
+            if(nrToPollinateBeforeSpawnNewBee < 1)
+            {
+                nrToPollinateBeforeSpawnNewBee = 1;
+            }
+        }
     }
 
     private void GrowMoreFlowers()
@@ -204,6 +220,12 @@ public class Planet : MonoBehaviour
         // - n += 1 + (2 / 2) -> n = 4
         // - n += 1 + (4 / 2) -> n = 7
         numberOfNewFlowersThatShouldGrow += 1 + (numberOfNewFlowersThatShouldGrow / 2);
+    }
+
+    public void SpawnAngryBee()
+    {
+        var angryBee = Instantiate(angryBeePrefab);
+        angryBee.GetComponent<AngryBee>().targetBee = GameObject.FindGameObjectWithTag(Tags.Player);
     }
 
     public float Radius
