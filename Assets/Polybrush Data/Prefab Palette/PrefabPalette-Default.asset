@@ -132,7 +132,7 @@ MonoBehaviour:
       m_YScaleBool: 0
       m_ZScaleBool: 0
     name: GrassBundle3
-  - gameObject: {fileID: 8711170749916319201, guid: 0a7ffbab3583b49dd9bffb0eeda9ad37,
+  - gameObject: {fileID: 2338647639742778555, guid: 5169ff6cb969e47d29de7b4b82ed381b,
       type: 3}
     settings:
       m_Strength: 50
@@ -148,4 +148,4 @@ MonoBehaviour:
       m_XScaleBool: 0
       m_YScaleBool: 0
       m_ZScaleBool: 0
-    name: Rock2
+    name: Weed1
