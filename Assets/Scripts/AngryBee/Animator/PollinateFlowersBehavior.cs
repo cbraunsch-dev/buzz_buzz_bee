@@ -6,7 +6,7 @@ public class PollinateFlowersBehavior : StateMachineBehaviour
 {
     private BeeOnSurface beeOnSurface;
     private GameObject targetBee;
-    private float distanceWhenToChasePlayer = 2.0f;
+    private float distanceWhenToChasePlayer = 4.0f;
     private GameObject planet;
     private Transform targetFlower;
     private float distanceWhenToFindNewFlower = 0.5f;

@@ -19,6 +19,7 @@ public class ChasePlayerBehavior : StateMachineBehaviour
         planet = GameObject.FindGameObjectWithTag(Tags.Ground);
         beeOnSurface = animator.gameObject.transform.Find("BeeOnSurface").GetComponent<BeeOnSurface>();
         targetBee = animator.gameObject.GetComponent<AngryBee>().targetBee;
+        timeSpentChasingPlayer = 0.0f;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

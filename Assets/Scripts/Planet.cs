@@ -79,6 +79,9 @@ public class Planet : MonoBehaviour
 
         GrowNextBatchOfFlowers(numberOfNewFlowersThatShouldGrow);
         numberOfNewFlowersThatShouldGrow++;
+
+        // Spawn a bee to kick things off in an interesting fashion
+        SpawnAngryBee();
     }
 
     private void GrowNextBatchOfFlowers(int numberOfFlowersToGrow)
@@ -144,12 +147,12 @@ public class Planet : MonoBehaviour
 
     public void FlowerWasPollinated(string tagOfFlower)
     {
-        if(tagOfFlower == Tags.RedFlower)
+        if (tagOfFlower == Tags.RedFlower)
         {
             numberOfPollinatedRedFlowers++;
             GrowMoreFlowers();
         }
-        else if(tagOfFlower == Tags.GreenFlower)
+        else if (tagOfFlower == Tags.GreenFlower)
         {
             numberOfPollinatedGreenFlowers++;
             GrowMoreFlowers();
@@ -159,7 +162,7 @@ public class Planet : MonoBehaviour
             numberOfPollinatedBlueFlowers++;
             GrowMoreFlowers();
         }
-        else if(tagOfFlower == Tags.YellowFlower)
+        else if (tagOfFlower == Tags.YellowFlower)
         {
             numberOfPollinatedYellowFlowers++;
             GrowMoreFlowers();
@@ -168,14 +171,14 @@ public class Planet : MonoBehaviour
         // NB: The order in which to pollinate the flowers has to match up with the way the flowers are added
         // to the main list of flowers in the Start() method. This is pretty fragile and gross but time-constraints
         // make this the easier choice than trying to figure out some algorithm. Gotta submit this to the game jam.
-        if(currentColorToPollinate == Tags.RedFlower && numberOfPollinatedRedFlowers == redFlowers.Count)
+        if (currentColorToPollinate == Tags.RedFlower && numberOfPollinatedRedFlowers == redFlowers.Count)
         {
             // Time to pollinate next set of flowers
             currentColorToPollinate = Tags.GreenFlower;
             PlayerShouldPollinateNewColor(currentColorToPollinate);
             hud.UpdateColorToPollinate(currentColorToPollinate);
         }
-        else if(currentColorToPollinate == Tags.GreenFlower && numberOfPollinatedGreenFlowers == greenFlowers.Count)
+        else if (currentColorToPollinate == Tags.GreenFlower && numberOfPollinatedGreenFlowers == greenFlowers.Count)
         {
             // Time to pollinate next set of flowers
             currentColorToPollinate = Tags.BlueFlower;
@@ -195,14 +198,19 @@ public class Planet : MonoBehaviour
         hud.UpdatePercentPollinated((int)percentagePollinated);
 
         // See if it's time to spawn a new angry bee
+        SpawnNewAngryBeeIfNecessary();
+    }
+
+    private void SpawnNewAngryBeeIfNecessary()
+    {
         nrPollinatedSinceLastBeeSpawned++;
-        if(nrPollinatedSinceLastBeeSpawned >= nrToPollinateBeforeSpawnNewBee)
+        if (nrPollinatedSinceLastBeeSpawned >= nrToPollinateBeforeSpawnNewBee)
         {
             // Each time it's time to spawn a new bee, we increase the frequency by which angry bees are spawned
             SpawnAngryBee();
             nrPollinatedSinceLastBeeSpawned = 0;
             nrToPollinateBeforeSpawnNewBee -= spawnBeeFrequencyFactor;
-            if(nrToPollinateBeforeSpawnNewBee < 1)
+            if (nrToPollinateBeforeSpawnNewBee < 1)
             {
                 nrToPollinateBeforeSpawnNewBee = 1;
             }
