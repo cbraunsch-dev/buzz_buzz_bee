@@ -7,7 +7,10 @@ using UnityEngine.SceneManagement;
 public class Planet : MonoBehaviour
 {
     public GameObject angryBeePrefab;
+    public GameObject bug1Prefab;
     public GameObject bug2Prefab;
+    public GameObject bug3Prefab;
+    public GameObject bug4Prefab;
     public GameObject activeGameCam;
     public GameObject gameFinishedCam;
 
@@ -232,13 +235,33 @@ public class Planet : MonoBehaviour
         if (nrPollinatedSinceLastInsectSpawned >= nrToPollinateBeforeSpawnNewInsect)
         {
             // Each time it's time to spawn a new insect, we increase the frequency by which insects are spawned
-            Instantiate(bug2Prefab);
+            SpawnRandomInsect();
             nrPollinatedSinceLastInsectSpawned = 0;
             nrToPollinateBeforeSpawnNewInsect -= spawnInsectFrequencyFactor;
             if (nrToPollinateBeforeSpawnNewInsect < 1)
             {
                 nrToPollinateBeforeSpawnNewInsect = 1;
             }
+        }
+    }
+
+    private void SpawnRandomInsect()
+    {
+        var randomVal = UnityEngine.Random.Range(0, 4); // The high value is the number of different type of bug prefabs we have
+        switch(randomVal)
+        {
+            case 0:
+                Instantiate(bug1Prefab);
+                break;
+            case 1:
+                Instantiate(bug2Prefab);
+                break;
+            case 2:
+                Instantiate(bug3Prefab);
+                break;
+            case 3:
+                Instantiate(bug4Prefab);
+                break;
         }
     }
 

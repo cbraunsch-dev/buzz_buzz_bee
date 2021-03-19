@@ -16059,7 +16059,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   angryBeePrefab: {fileID: 6860356425878606015, guid: b7bb7b559fa504dc7b77fdd2b1443404,
     type: 3}
+  bug1Prefab: {fileID: 8811005216495072250, guid: 0ba6bed67730f4dad97455750a0b614b,
+    type: 3}
   bug2Prefab: {fileID: 1875336816417045876, guid: ab30322353cf441308b97b3a88dcdbd0,
+    type: 3}
+  bug3Prefab: {fileID: 4591439189635804481, guid: 2fc9e1e6cc3bc41c28be7814029d20c4,
+    type: 3}
+  bug4Prefab: {fileID: 5889030944540833139, guid: b4995ffab608541338d012ea646f61fd,
     type: 3}
   activeGameCam: {fileID: 719162697}
   gameFinishedCam: {fileID: 1489639337}
