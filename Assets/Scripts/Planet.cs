@@ -32,6 +32,8 @@ public class Planet : MonoBehaviour
     private Hud hud;
     private bool hudUpdatedWithInitialValues = false;
 
+    private GameMode gameMode = GameMode.TimeTrial;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -88,8 +90,22 @@ public class Planet : MonoBehaviour
             hudUpdatedWithInitialValues = true;
             hud = GameObject.FindGameObjectWithTag(Tags.HUD).GetComponent<Hud>();
             hud.UpdatePercentPollinated(0);
+            hud.UpdateTime(0, 0);
             hud.UpdateColorToPollinate(currentColorToPollinate);
+            if(gameMode == GameMode.TimeTrial)
+            {
+                hud.PrepareUIForTimeTrial();
+            }
+            else if(gameMode == GameMode.Survival)
+            {
+                hud.PrepareUIForSurvival();
+            }
         }
+
+        // Keep track of time and show it in UI
+        float minutes = (int)(Time.time / 60f);
+        float seconds = (int)(Time.time % 60f);
+        hud.UpdateTime(minutes, seconds);
     }
 
     private void PlayerShouldPollinateNewColor(string color)
@@ -178,5 +194,11 @@ public class Planet : MonoBehaviour
         {
             return this.allFlowers;
         }
+    }
+
+    public enum GameMode
+    {
+        TimeTrial,
+        Survival
     }
 }

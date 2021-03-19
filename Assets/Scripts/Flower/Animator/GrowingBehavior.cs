@@ -24,7 +24,7 @@ public class GrowingBehavior : StateMachineBehaviour
 
         defaultFullScale = flowerBloomed.transform.localScale;
         flowerBloomed.transform.localScale *= 0.1f;
-        rateOfGrowth = Random.Range(1.01f, 1.05f);
+        rateOfGrowth = 1.05f;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

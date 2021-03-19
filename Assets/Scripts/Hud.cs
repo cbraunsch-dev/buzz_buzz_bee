@@ -7,6 +7,7 @@ public class Hud : MonoBehaviour
 {
     private TextMeshProUGUI healthText;
     private TextMeshProUGUI percentPollinatedText;
+    private TextMeshProUGUI timeText;
     private TextMeshProUGUI colorToPollinateText;
 
     // Start is called before the first frame update
@@ -15,12 +16,25 @@ public class Hud : MonoBehaviour
         healthText = transform.Find("Health").GetComponent<TextMeshProUGUI>();
         percentPollinatedText = transform.Find("Pollinated").GetComponent<TextMeshProUGUI>();
         colorToPollinateText = transform.Find("ColorToPollinate").GetComponent<TextMeshProUGUI>();
+        timeText = transform.Find("Time").GetComponent<TextMeshProUGUI>();
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void PrepareUIForTimeTrial()
+    {
+        healthText.gameObject.SetActive(false);
+        percentPollinatedText.gameObject.SetActive(true);
+    }
+
+    public void PrepareUIForSurvival()
+    {
+        healthText.gameObject.SetActive(true);
+        percentPollinatedText.gameObject.SetActive(false);
     }
 
     public void UpdateColorToPollinate(string color)
@@ -63,6 +77,14 @@ public class Hud : MonoBehaviour
         if (percentPollinatedText != null)
         {
             percentPollinatedText.text = "% pollinated: " + percent;
+        }
+    }
+
+    public void UpdateTime(float minutes, float seconds)
+    {
+        if(timeText != null)
+        {
+            timeText.text = "Time: " + minutes.ToString("00") + ":" + seconds.ToString("00");
         }
     }
 }
