@@ -8,8 +8,8 @@ public class GrowingBehavior : StateMachineBehaviour
     private GameObject flowerBloomed;
     private GameObject flowerPollinated;
 
-    private float timeNeededToGrow;
-    private float timeSpentGrowing;
+    private float rateOfGrowth = 0.0f;
+    private Vector3 defaultFullScale;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -22,15 +22,18 @@ public class GrowingBehavior : StateMachineBehaviour
         flowerBloomed.SetActive(true);
         flowerPollinated.SetActive(false);
 
-        timeNeededToGrow = Random.Range(2.0f, 5.0f);
+        defaultFullScale = flowerBloomed.transform.localScale;
+        flowerBloomed.transform.localScale *= 0.1f;
+        rateOfGrowth = Random.Range(1.01f, 1.05f);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        timeSpentGrowing += Time.deltaTime;
-        if (timeSpentGrowing >= timeNeededToGrow)
+        flowerBloomed.transform.localScale *= rateOfGrowth;   
+        if (flowerBloomed.transform.localScale.magnitude >= defaultFullScale.magnitude)
         {
+            flowerBloomed.transform.localScale = defaultFullScale;
             animator.SetTrigger(Triggers.Grown);
         }
     }
