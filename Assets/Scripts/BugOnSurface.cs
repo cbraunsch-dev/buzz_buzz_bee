@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BeeOnSurface : MonoBehaviour
+public class BugOnSurface : MonoBehaviour
 {
-    public GameObject planet;
+    private GameObject planet;
 
     // Start is called before the first frame update
     void Start()

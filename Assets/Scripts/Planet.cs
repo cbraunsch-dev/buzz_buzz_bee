@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class Planet : MonoBehaviour
 {
     public GameObject angryBeePrefab;
+    public GameObject bug2Prefab;
     public GameObject activeGameCam;
     public GameObject gameFinishedCam;
 
@@ -44,9 +45,9 @@ public class Planet : MonoBehaviour
     private Hud hud;
     private bool hudUpdatedWithInitialValues = false;
 
-    private int nrToPollinateBeforeSpawnNewBee = 5;
-    private int spawnBeeFrequencyFactor = 1;    // The amount by which nrToPollinateBeforeSpawnNewBee changes when a flower gets pollinated
-    private int nrPollinatedSinceLastBeeSpawned = 0;
+    private int nrToPollinateBeforeSpawnNewInsect = 5;
+    private int spawnInsectFrequencyFactor = 1;    // The amount by which nrToPollinateBeforeSpawnNewBee changes when a flower gets pollinated
+    private int nrPollinatedSinceLastInsectSpawned = 0;
 
     private GameMode gameMode = GameMode.TimeTrial;
 
@@ -213,7 +214,7 @@ public class Planet : MonoBehaviour
         hud.UpdatePercentPollinated((int)percentagePollinated);
 
         // See if it's time to spawn a new angry bee
-        SpawnNewAngryBeeIfNecessary();
+        SpawnNewInsectIfNecessary();
 
         if(gameMode == GameMode.TimeTrial && percentagePollinated >= 100) 
         {
@@ -225,18 +226,18 @@ public class Planet : MonoBehaviour
         }
     }
 
-    private void SpawnNewAngryBeeIfNecessary()
+    private void SpawnNewInsectIfNecessary()
     {
-        nrPollinatedSinceLastBeeSpawned++;
-        if (nrPollinatedSinceLastBeeSpawned >= nrToPollinateBeforeSpawnNewBee)
+        nrPollinatedSinceLastInsectSpawned++;
+        if (nrPollinatedSinceLastInsectSpawned >= nrToPollinateBeforeSpawnNewInsect)
         {
-            // Each time it's time to spawn a new bee, we increase the frequency by which angry bees are spawned
-            SpawnAngryBee();
-            nrPollinatedSinceLastBeeSpawned = 0;
-            nrToPollinateBeforeSpawnNewBee -= spawnBeeFrequencyFactor;
-            if (nrToPollinateBeforeSpawnNewBee < 1)
+            // Each time it's time to spawn a new insect, we increase the frequency by which insects are spawned
+            Instantiate(bug2Prefab);
+            nrPollinatedSinceLastInsectSpawned = 0;
+            nrToPollinateBeforeSpawnNewInsect -= spawnInsectFrequencyFactor;
+            if (nrToPollinateBeforeSpawnNewInsect < 1)
             {
-                nrToPollinateBeforeSpawnNewBee = 1;
+                nrToPollinateBeforeSpawnNewInsect = 1;
             }
         }
     }

@@ -9,7 +9,7 @@ public class ChasePlayerBehavior : StateMachineBehaviour
     private float timeSinceLastChangedPlayerTarget = 0.0f;
     private float timeBeforeChangePlayerTarget = 0.5f;
     private Vector3 currentTargetPosition = Vector3.zero;
-    private BeeOnSurface beeOnSurface;
+    private BugOnSurface bugOnSurface;
     private GameObject targetBee;
     private GameObject planet;
 
@@ -17,7 +17,7 @@ public class ChasePlayerBehavior : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         planet = GameObject.FindGameObjectWithTag(Tags.Ground);
-        beeOnSurface = animator.gameObject.transform.Find("BeeOnSurface").GetComponent<BeeOnSurface>();
+        bugOnSurface = animator.gameObject.transform.Find("BugOnSurface").GetComponent<BugOnSurface>();
         targetBee = animator.gameObject.GetComponent<AngryBee>().targetBee;
         timeSpentChasingPlayer = 0.0f;
     }
@@ -47,7 +47,7 @@ public class ChasePlayerBehavior : StateMachineBehaviour
 
         if (currentTargetPosition != Vector3.zero)
         {
-            beeOnSurface.TargetPosition = targetBee.transform.position;
+            bugOnSurface.TargetPosition = targetBee.transform.position;
 
             var targetRotation = Quaternion.LookRotation(currentTargetPosition - transform.position);
             var currentProjectedPointOnSurface = transform.forward * planet.GetComponent<Planet>().Radius;

@@ -6,7 +6,7 @@ public class BackOffPlayerBehavior : StateMachineBehaviour
 {
     private AngryBee angryBee;
     private Transform targetFlower;
-    private BeeOnSurface beeOnSurface;
+    private BugOnSurface bugOnSurface;
     private float speed = 1.0f;
     private float distanceWhenToFindNewFlower = 0.5f;
     private GameObject planet;
@@ -17,7 +17,7 @@ public class BackOffPlayerBehavior : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         planet = GameObject.FindGameObjectWithTag(Tags.Ground);
-        beeOnSurface = animator.gameObject.transform.Find("BeeOnSurface").GetComponent<BeeOnSurface>();
+        bugOnSurface = animator.gameObject.transform.Find("BugOnSurface").GetComponent<BugOnSurface>();
         angryBee = animator.gameObject.GetComponent<AngryBee>();
         timeAfterWhenCanStartChasingPlayerAgain = Random.Range(3.0f, 8.0f);
         amountOfTimeSinceStartedBackingOff = 0.0f;
@@ -26,11 +26,11 @@ public class BackOffPlayerBehavior : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (AngryBee.TimeToSelectFlowerTarget(targetFlower, beeOnSurface.transform.position, distanceWhenToFindNewFlower))
+        if (InsectUtils.TimeToSelectFlowerTarget(targetFlower, bugOnSurface.transform.position, distanceWhenToFindNewFlower))
         {
             Debug.Log("Find a new flower");
-            targetFlower = AngryBee.PickRandomFlower(planet.GetComponent<Planet>());
-            beeOnSurface.TargetPosition = targetFlower.position;
+            targetFlower = InsectUtils.PickRandomFlower(planet.GetComponent<Planet>());
+            bugOnSurface.TargetPosition = targetFlower.position;
         }
         if (targetFlower != null)
         {
