@@ -9,8 +9,10 @@ public class Hud : MonoBehaviour
 {
     private TextMeshProUGUI healthText;
     private TextMeshProUGUI percentPollinatedText;
+    private Vector3 percentPollinatedTextDefaultScale;
     private TextMeshProUGUI timeText;
     private TextMeshProUGUI penaltyText;
+    private Vector3 penaltyTextDefaultScale;
     private TextMeshProUGUI colorToPollinateText;
     private TextMeshProUGUI congratulationsText;
 
@@ -19,9 +21,11 @@ public class Hud : MonoBehaviour
     {
         healthText = transform.Find("Health").GetComponent<TextMeshProUGUI>();
         percentPollinatedText = transform.Find("Pollinated").GetComponent<TextMeshProUGUI>();
+        percentPollinatedTextDefaultScale = percentPollinatedText.transform.localScale;
         colorToPollinateText = transform.Find("ColorToPollinate").GetComponent<TextMeshProUGUI>();
         timeText = transform.Find("Time").GetComponent<TextMeshProUGUI>();
         penaltyText = transform.Find("Penalty").GetComponent<TextMeshProUGUI>();
+        penaltyTextDefaultScale = penaltyText.transform.localScale;
         congratulationsText = transform.Find("Congratulations").GetComponent<TextMeshProUGUI>();
     }
 
@@ -87,6 +91,10 @@ public class Hud : MonoBehaviour
         if (percentPollinatedText != null)
         {
             percentPollinatedText.text = "% pollinated: " + percent;
+            if (percentPollinatedText.transform.localScale == percentPollinatedTextDefaultScale)
+            {
+                percentPollinatedText.transform.DOScale(1.5f, 0.25f).SetLoops(2, LoopType.Yoyo);
+            }
         }
     }
 
@@ -104,6 +112,10 @@ public class Hud : MonoBehaviour
         {
             penaltyText.gameObject.SetActive(true);
             penaltyText.text = "+ " + minutes.ToString("00") + ":" + seconds.ToString("00");
+            if (penaltyText.transform.localScale == penaltyTextDefaultScale)
+            {
+                penaltyText.transform.DOScale(1.5f, 0.25f).SetLoops(2, LoopType.Yoyo);
+            }
         }
     }
 
