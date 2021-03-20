@@ -75,6 +75,7 @@ public class Hud : MonoBehaviour
                 colorToPollinateText.color = Color.yellow;
                 colorToPollinateText.text = "Pollinate yellow flowers";
             }
+            colorToPollinateText.transform.DOScale(1.5f, 0.5f).SetLoops(2, LoopType.Yoyo);
         }
     }
 
