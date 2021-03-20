@@ -13,4 +13,5 @@ public static class Tags
     public static string Enemy = "Enemy";
     public static string HUD = "HUD";
     public static string PenaltyFlash = "PenaltyFlash";
+    public static string IntroCanvas = "IntroCanvas";
 }

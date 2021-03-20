@@ -47,6 +47,7 @@ public class Planet : MonoBehaviour
     private string currentColorToPollinate = Tags.RedFlower;
 
     private Hud hud;
+    private GameObject introCanvas;
     private bool hudUpdatedWithInitialValues = false;
 
     // Values that determine when to spawn new friendly insects
@@ -66,12 +67,16 @@ public class Planet : MonoBehaviour
     // Stuff for time-trial
     private float totalPenaltyInSeconds = 0f;
 
+    private bool gameStarted = false;
     private bool gameFinished = false;
 
     // Start is called before the first frame update
     void Start()
     {
+        Time.timeScale = 0; // Pause game initially until player starts game
+
         hud = GameObject.FindGameObjectWithTag(Tags.HUD).GetComponent<Hud>();
+        introCanvas = GameObject.FindGameObjectWithTag(Tags.IntroCanvas);
         penaltyFlash = GameObject.FindGameObjectWithTag(Tags.PenaltyFlash).GetComponent<CanvasGroup>();
 
         // This order here is important when determining which set of flowers to pollinate next (see FlowerWasPollinated())
@@ -95,12 +100,6 @@ public class Planet : MonoBehaviour
         {
             allFlowers.Add(flower);
         });
-
-        GrowNextBatchOfFlowers(numberOfNewFlowersThatShouldGrow);
-        numberOfNewFlowersThatShouldGrow++;
-
-        // Spawn an angry bee to kick things off in an interesting fashion
-        SpawnAngryBee();
     }
 
     private void GrowNextBatchOfFlowers(int numberOfFlowersToGrow)
@@ -161,11 +160,24 @@ public class Planet : MonoBehaviour
             }
         }
 
-        if (!gameFinished)
+        if(!gameStarted && Input.GetMouseButtonDown(0))
+        {
+            // Start game
+            Time.timeScale = 1; // Unpause game
+            gameStarted = true;
+            introCanvas.SetActive(false);
+
+            GrowNextBatchOfFlowers(numberOfNewFlowersThatShouldGrow);
+            numberOfNewFlowersThatShouldGrow++;
+
+            // Spawn an angry bee to kick things off in an interesting fashion
+            SpawnAngryBee();
+        }
+        if (gameStarted && !gameFinished)
         {
             // Keep track of time and show it in UI
-            float minutes = (int)(Time.time / 60f);
-            float seconds = (int)(Time.time % 60f);
+            float minutes = (int)(Time.timeSinceLevelLoad / 60f);
+            float seconds = (int)(Time.timeSinceLevelLoad % 60f);
             hud.UpdateTime(minutes, seconds);
         }
         if(gameFinished && Input.GetMouseButtonDown(0))
