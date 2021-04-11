@@ -1,5 +1,5 @@
 # Buzz, Buzz I'm a Bee (March 2021)
-This is a simple game I made for the [Great Spring Game Jam](https://itch.io/jam/great-spring-game-jam-2021).
+This is a simple game I made for the [Great Spring Game Jam](https://itch.io/jam/great-spring-game-jam-2021). You can [play it here.](https://cbraunsch-dev.itch.io/buzz-buzz-im-a-bee)
 
 [Watch my develoment journey](https://youtu.be/LIeAUtmeldY)
 
